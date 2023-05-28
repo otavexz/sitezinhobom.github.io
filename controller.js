@@ -39,6 +39,58 @@ function myFunction() {
 
 
   
+// JavaScript
+function getNextSaturday() {
+  var today = new Date();
+  var day = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  var nextSaturday = new Date();
+
+  if (day === 6) {
+    // Today is Saturday, so set next Saturday as the current date
+    nextSaturday.setDate(today.getDate());
+  } else {
+    // Calculate the days until next Saturday
+    var daysUntilNextSaturday = 6 - day;
+    nextSaturday.setDate(today.getDate() + daysUntilNextSaturday);
+  }
+
+  // Set the time to 12:30:00
+  nextSaturday.setHours(12);
+  nextSaturday.setMinutes(30);
+  nextSaturday.setSeconds(0);
+  nextSaturday.setMilliseconds(0);
+
+  return nextSaturday;
+}
+
+function updateCountdown() {
+  var countDownDate = getNextSaturday().getTime();
+
+  var countdownFunction = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("demo").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+    if (distance < 0) {
+      clearInterval(countdownFunction);
+      document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+  }, 1000);
+}
+
+// Call the function to start the countdown immediately
+updateCountdown();
+
+// Schedule the next countdown to start on the next Saturday at 12:30:00
+setInterval(function() {
+  updateCountdown();
+}, 7 * 24 * 60 * 60 * 1000); // Repeat every 7 days
 
 
 
