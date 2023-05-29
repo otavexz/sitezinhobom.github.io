@@ -6,7 +6,7 @@ function myFunction() {
     } else {
       x.className = "topnav";
     }
-  }
+}
 
   let slideIndex = 1;
   showSlides(slideIndex);
